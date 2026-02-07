@@ -31,3 +31,8 @@ hardened execution substrate repositories.
 
 Examples include integration glue, local wrappers, and higher-risk workflows
 that should not expand the trusted core runtime threat surface.
+
+## Repository policy docs
+
+- Contribution guidelines: `CONTRIBUTING.md`
+- Security reporting: `SECURITY.md`

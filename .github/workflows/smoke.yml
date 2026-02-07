@@ -1,0 +1,19 @@
+name: Examples Smoke
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build inactu-cli
+        run: |
+          git clone https://github.com/opertus-systems/inactu-cli ../inactu-cli
+          cargo build -p inactu-cli --manifest-path ../inactu-cli/Cargo.toml
+      - name: Run smoke demos
+        run: ./scripts/smoke.sh

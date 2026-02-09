@@ -8,37 +8,65 @@ repo_root() {
   pwd
 }
 
-resolve_inactu_cli() {
-  if command -v inactu-cli >/dev/null 2>&1; then
-    echo "inactu-cli"
+resolve_provenact_cli() {
+  if command -v provenact-cli >/dev/null 2>&1; then
+    echo "provenact-cli"
+    return 0
+  fi
+
+  if command -v provenact-cli >/dev/null 2>&1; then
+    echo "provenact-cli"
     return 0
   fi
 
   local root
   root="$(repo_root)"
-  local sibling="${root}/../inactu-cli"
-  if [[ -x "${sibling}/target/debug/inactu-cli" ]]; then
-    echo "${sibling}/target/debug/inactu-cli"
+  local sibling_provenact="${root}/../provenact-cli"
+  if [[ -x "${sibling_provenact}/target/debug/provenact-cli" ]]; then
+    echo "${sibling_provenact}/target/debug/provenact-cli"
+    return 0
+  fi
+  if [[ -x "${sibling_provenact}/target/debug/provenact-cli" ]]; then
+    echo "${sibling_provenact}/target/debug/provenact-cli"
     return 0
   fi
 
-  if [[ -f "${sibling}/Cargo.toml" ]]; then
-    echo "cargo run -q -p inactu-cli --manifest-path ${sibling}/Cargo.toml --bin inactu-cli --"
+  local sibling_legacy="${root}/../provenact-cli"
+  if [[ -x "${sibling_legacy}/target/debug/provenact-cli" ]]; then
+    echo "${sibling_legacy}/target/debug/provenact-cli"
     return 0
   fi
 
-  echo "ERROR: could not find inactu-cli binary or sibling repo at ${sibling}" >&2
+  if [[ -f "${sibling_provenact}/Cargo.toml" ]]; then
+    echo "cargo-run-provenact:${sibling_provenact}/Cargo.toml"
+    return 0
+  fi
+
+  if [[ -f "${sibling_legacy}/Cargo.toml" ]]; then
+    echo "cargo-run-provenact:${sibling_legacy}/Cargo.toml"
+    return 0
+  fi
+
+  echo "ERROR: could not find provenact-cli/provenact-cli binary or sibling repo at ${sibling_provenact} or ${sibling_legacy}" >&2
   return 1
 }
 
-run_inactu() {
+run_provenact() {
   local cli
-  cli="$(resolve_inactu_cli)"
-  if [[ "${cli}" == cargo\ run* ]]; then
-    eval "${cli} $*"
-  else
-    "${cli}" "$@"
-  fi
+  cli="$(resolve_provenact_cli)"
+  case "${cli}" in
+    cargo-run-provenact:*)
+      local manifest="${cli#cargo-run-provenact:}"
+      cargo run -q -p provenact-cli --manifest-path "${manifest}" --bin provenact-cli -- "$@"
+      ;;
+    cargo-run-provenact:*)
+      local manifest="${cli#cargo-run-provenact:}"
+      cargo run -q -p provenact-cli --manifest-path "${manifest}" --bin provenact-cli -- "$@"
+      ;;
+    *)
+      "${cli}" "$@"
+      ;;
+  esac
 }
 
 keys_digest() {

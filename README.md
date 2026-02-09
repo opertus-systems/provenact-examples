@@ -1,6 +1,6 @@
-# inactu-examples
+# provenact-examples
 
-Runnable examples for Inactu adoption.
+Runnable examples for Provenact adoption.
 
 This repository is intentionally integration-heavy and separate from the
 hardened execution substrate repositories.
@@ -11,12 +11,12 @@ hardened execution substrate repositories.
   skill bundle.
 - `demos/ci-gate`: enforce a policy-denial path suitable for CI gates.
 - `demos/ide-bridge`: export installed skills as AgentSkills wrappers.
-- `demos/control-plane-console`: local walkthrough tying `inactu-control` and
-  `inactu-control-web`.
+- `demos/control-plane-console`: local walkthrough tying `provenact-control` and
+  `provenact-control-web`.
 
 ## Prerequisites
 
-- `inactu-cli` in `PATH`, or sibling checkout at `../inactu-cli`.
+- `provenact-cli` in `PATH`, or sibling checkout at `../provenact-cli`.
 - `bash`, `shasum`, and `awk`.
 - `docker` + `docker compose` for control-plane demo.
 - `node >= 20` for control-web demo.
@@ -31,3 +31,8 @@ hardened execution substrate repositories.
 
 Examples include integration glue, local wrappers, and higher-risk workflows
 that should not expand the trusted core runtime threat surface.
+
+## Repository policy docs
+
+- Contribution guidelines: `CONTRIBUTING.md`
+- Security reporting: `SECURITY.md`

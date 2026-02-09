@@ -18,11 +18,11 @@ LOG_FILE="${WORKDIR}/run-deny.log"
 
 DIGEST="$(keys_digest "${KEYS}")"
 rm -rf "${BUNDLE}"
-run_inactu pack --bundle "${BUNDLE}" --wasm "${FIXTURE}/skill.wasm" --manifest "${FIXTURE}/manifest.json"
-run_inactu sign --bundle "${BUNDLE}" --signer alice.dev --secret-key "${FIXTURE}/signer-secret-key.txt"
+run_provenact pack --bundle "${BUNDLE}" --wasm "${FIXTURE}/skill.wasm" --manifest "${FIXTURE}/manifest.json"
+run_provenact sign --bundle "${BUNDLE}" --signer alice.dev --secret-key "${FIXTURE}/signer-secret-key.txt"
 
 set +e
-run_inactu run --bundle "${BUNDLE}" --keys "${KEYS}" --keys-digest "${DIGEST}" --policy "${POLICY_DENY}" --input "${INPUT}" --receipt "${RECEIPT}" >"${LOG_FILE}" 2>&1
+run_provenact run --bundle "${BUNDLE}" --keys "${KEYS}" --keys-digest "${DIGEST}" --policy "${POLICY_DENY}" --input "${INPUT}" --receipt "${RECEIPT}" >"${LOG_FILE}" 2>&1
 rc=$?
 set -e
 

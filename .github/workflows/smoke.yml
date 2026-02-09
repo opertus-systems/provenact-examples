@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - name: Build inactu-cli
+      - name: Build provenact-cli
         run: |
-          git clone https://github.com/opertus-systems/inactu-cli ../inactu-cli
-          cargo build -p inactu-cli --manifest-path ../inactu-cli/Cargo.toml
+          git clone https://github.com/opertus-systems/provenact-cli ../provenact-cli
+          cargo build -p provenact-cli --manifest-path ../provenact-cli/Cargo.toml
       - name: Run smoke demos
         run: ./scripts/smoke.sh

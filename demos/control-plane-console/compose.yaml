@@ -2,41 +2,41 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: inactu_control
+      POSTGRES_DB: provenact_control
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
 
-  inactu-control:
+  provenact-control:
     build:
-      context: ../../../inactu-control
+      context: ${CONTROL_REPO_PATH:-../../../provenact-control}
       dockerfile: Dockerfile
     environment:
-      INACTU_CONTROL_BIND: 0.0.0.0:8080
+      PROVENACT_CONTROL_BIND: 0.0.0.0:8080
       RUST_LOG: info
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/inactu_control
-      INACTU_API_AUTH_SECRET: dev-secret-change-me
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/provenact_control
+      PROVENACT_API_AUTH_SECRET: dev-secret-change-me
     depends_on:
       - postgres
     ports:
       - "8080:8080"
 
-  inactu-control-web:
+  provenact-control-web:
     image: node:20-alpine
     working_dir: /workspace
     volumes:
-      - ../../../inactu-control-web:/workspace
+      - ${CONTROL_WEB_REPO_PATH:-../../../provenact-control-web}:/workspace
     command: >
       sh -lc "npm install && npm run dev -- --hostname 0.0.0.0 --port 3000"
     environment:
-      NEXT_PUBLIC_INACTU_API_BASE_URL: http://localhost:8080
+      NEXT_PUBLIC_PROVENACT_API_BASE_URL: http://localhost:8080
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: dev-secret-change-me
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/inactu_control
-      INACTU_API_BASE_URL: http://inactu-control:8080
-      INACTU_API_AUTH_SECRET: dev-secret-change-me
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/provenact_control
+      PROVENACT_API_BASE_URL: http://provenact-control:8080
+      PROVENACT_API_AUTH_SECRET: dev-secret-change-me
     depends_on:
-      - inactu-control
+      - provenact-control
     ports:
       - "3000:3000"

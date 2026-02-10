@@ -14,35 +14,21 @@ resolve_provenact_cli() {
     return 0
   fi
 
-  if command -v provenact-cli >/dev/null 2>&1; then
-    echo "provenact-cli"
-    return 0
-  fi
-
   local root
   root="$(repo_root)"
 
   local sibling
-  for sibling in "${root}/../provenact-cli" "${root}/../provenact-cli"; do
-    if [[ -x "${sibling}/target/debug/provenact-cli" ]]; then
-      echo "${sibling}/target/debug/provenact-cli"
-      return 0
-    fi
-    if [[ -x "${sibling}/target/debug/provenact-cli" ]]; then
-      echo "${sibling}/target/debug/provenact-cli"
-      return 0
-    fi
-    if [[ -f "${sibling}/Cargo.toml" ]]; then
-      if [[ "${sibling}" == *"/provenact-cli" ]]; then
-        echo "cargo:${sibling}/Cargo.toml:provenact-cli"
-      else
-        echo "cargo:${sibling}/Cargo.toml:provenact-cli"
-      fi
-      return 0
-    fi
-  done
+  sibling="${root}/../provenact-cli"
+  if [[ -x "${sibling}/target/debug/provenact-cli" ]]; then
+    echo "${sibling}/target/debug/provenact-cli"
+    return 0
+  fi
+  if [[ -f "${sibling}/Cargo.toml" ]]; then
+    echo "cargo:${sibling}/Cargo.toml:provenact-cli"
+    return 0
+  fi
 
-  echo "ERROR: could not find provenact-cli or provenact-cli binary, or sibling repo at ../provenact-cli or ../provenact-cli" >&2
+  echo "ERROR: could not find provenact-cli on PATH or at ../provenact-cli" >&2
   return 1
 }
 
@@ -57,10 +43,6 @@ run_provenact() {
   else
     "${cli}" "$@"
   fi
-}
-
-run_provenact() {
-  run_provenact "$@"
 }
 
 keys_digest() {

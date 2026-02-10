@@ -1,6 +1,6 @@
 # Contributing
 
-`inactu-examples` is intentionally integration-heavy. Keep changes small, runnable, and explicit.
+`provenact-examples` is intentionally integration-heavy. Keep changes small, runnable, and explicit.
 
 ## Rules
 

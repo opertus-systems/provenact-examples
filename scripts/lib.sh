@@ -14,8 +14,8 @@ resolve_provenact_cli() {
     return 0
   fi
 
-  if command -v inactu-cli >/dev/null 2>&1; then
-    echo "inactu-cli"
+  if command -v provenact-cli >/dev/null 2>&1; then
+    echo "provenact-cli"
     return 0
   fi
 
@@ -23,26 +23,26 @@ resolve_provenact_cli() {
   root="$(repo_root)"
 
   local sibling
-  for sibling in "${root}/../provenact-cli" "${root}/../inactu-cli"; do
+  for sibling in "${root}/../provenact-cli" "${root}/../provenact-cli"; do
     if [[ -x "${sibling}/target/debug/provenact-cli" ]]; then
       echo "${sibling}/target/debug/provenact-cli"
       return 0
     fi
-    if [[ -x "${sibling}/target/debug/inactu-cli" ]]; then
-      echo "${sibling}/target/debug/inactu-cli"
+    if [[ -x "${sibling}/target/debug/provenact-cli" ]]; then
+      echo "${sibling}/target/debug/provenact-cli"
       return 0
     fi
     if [[ -f "${sibling}/Cargo.toml" ]]; then
       if [[ "${sibling}" == *"/provenact-cli" ]]; then
         echo "cargo:${sibling}/Cargo.toml:provenact-cli"
       else
-        echo "cargo:${sibling}/Cargo.toml:inactu-cli"
+        echo "cargo:${sibling}/Cargo.toml:provenact-cli"
       fi
       return 0
     fi
   done
 
-  echo "ERROR: could not find provenact-cli or inactu-cli binary, or sibling repo at ../provenact-cli or ../inactu-cli" >&2
+  echo "ERROR: could not find provenact-cli or provenact-cli binary, or sibling repo at ../provenact-cli or ../provenact-cli" >&2
   return 1
 }
 
@@ -59,7 +59,7 @@ run_provenact() {
   fi
 }
 
-run_inactu() {
+run_provenact() {
   run_provenact "$@"
 }
 

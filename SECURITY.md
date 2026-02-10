@@ -1,8 +1,8 @@
 # SECURITY.md
 
-## Security Policy — inactu-examples
+## Security Policy — provenact-examples
 
-`inactu-examples` contains runnable integration demos. It is not a trust root.
+`provenact-examples` contains runnable integration demos. It is not a trust root.
 
 ### Scope
 
@@ -10,7 +10,7 @@ This policy applies to:
 - demo scripts and compose assets
 - fixture handling and local setup flows
 
-This policy does not redefine substrate guarantees; those belong to `inactu-cli` and `inactu-spec`.
+This policy does not redefine substrate guarantees; those belong to `provenact-cli` and `provenact-spec`.
 
 ### Reporting
 

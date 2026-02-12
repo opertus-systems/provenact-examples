@@ -26,5 +26,7 @@ Tear down:
 Notes:
 
 - This is a local dev walkthrough, not a production deployment profile.
-- `PROVENACT_API_AUTH_SECRET` is fixed for demo purposes and must be rotated in
-  real environments.
+- `./up.sh` auto-generates ephemeral `PROVENACT_API_AUTH_SECRET` and
+  `NEXTAUTH_SECRET` when they are unset.
+- If you prefer fixed local values, export those environment variables before
+  running `./up.sh`.

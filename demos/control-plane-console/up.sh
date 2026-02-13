@@ -16,8 +16,12 @@ generate_secret() {
     return
   fi
   # Fallback for environments without openssl.
-  LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 64
-  printf '\n'
+  local generated
+  generated="$(
+    set +o pipefail
+    LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 64
+  )"
+  printf '%s\n' "$generated"
 }
 
 if [[ -z "${PROVENACT_API_AUTH_SECRET:-}" ]]; then

@@ -16,7 +16,7 @@ services:
       PROVENACT_CONTROL_BIND: 0.0.0.0:8080
       RUST_LOG: info
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/provenact_control
-      PROVENACT_API_AUTH_SECRET: dev-secret-change-me
+      PROVENACT_API_AUTH_SECRET: ${PROVENACT_API_AUTH_SECRET:?set PROVENACT_API_AUTH_SECRET}
     depends_on:
       - postgres
     ports:
@@ -32,10 +32,10 @@ services:
     environment:
       NEXT_PUBLIC_PROVENACT_API_BASE_URL: http://localhost:8080
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: dev-secret-change-me
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?set NEXTAUTH_SECRET}
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/provenact_control
       PROVENACT_API_BASE_URL: http://provenact-control:8080
-      PROVENACT_API_AUTH_SECRET: dev-secret-change-me
+      PROVENACT_API_AUTH_SECRET: ${PROVENACT_API_AUTH_SECRET:?set PROVENACT_API_AUTH_SECRET}
     depends_on:
       - provenact-control
     ports:

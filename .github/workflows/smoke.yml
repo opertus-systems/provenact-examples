@@ -5,15 +5,26 @@ on:
     branches: ["main"]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Checkout provenact-examples
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      - name: Checkout provenact-cli (pinned)
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          repository: opertus-systems/provenact-cli
+          ref: 9f1a73fe4125cd5cd30cdf1f13b6666fee781887
+          path: provenact-cli
+      - name: Link provenact-cli sibling path
+        run: ln -sfn "$GITHUB_WORKSPACE/provenact-cli" "$GITHUB_WORKSPACE/../provenact-cli"
+      - uses: dtolnay/rust-toolchain@4be9e76fd7c4901c61fb841f559994984270fce7
       - name: Build provenact-cli
         run: |
-          git clone https://github.com/opertus-systems/provenact-cli ../provenact-cli
-          cargo build -p provenact-cli --manifest-path ../provenact-cli/Cargo.toml
+          cargo build -p provenact-cli --manifest-path "$GITHUB_WORKSPACE/provenact-cli/Cargo.toml"
       - name: Run smoke demos
         run: ./scripts/smoke.sh

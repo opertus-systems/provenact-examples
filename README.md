@@ -11,8 +11,7 @@ hardened execution substrate repositories.
   skill bundle.
 - `demos/ci-gate`: enforce a policy-denial path suitable for CI gates.
 - `demos/ide-bridge`: export installed skills as AgentSkills wrappers.
-- `demos/provenclaw-phase0`: register immutable tools, run via ProvenClaw,
-  verify receipt, and print audit NDJSON tail.
+- `demos/provenclaw-phase0`: legacy/deprecated demo kept for migration reference.
 - `demos/control-plane-console`: local walkthrough tying `provenact-control` and
   `provenact-control-web`.
 

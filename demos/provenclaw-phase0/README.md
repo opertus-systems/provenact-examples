@@ -1,24 +1,12 @@
-# ProvenClaw Phase 0 Demo
+# ProvenClaw Phase 0 Demo (Legacy)
 
-This demo provides a 5-minute enterprise-evaluable flow:
+This demo is intentionally retained as a migration marker only.
 
-1. initialize isolated `PROVENCLAW_HOME`
-2. register two immutable tool digests
-3. run a tool via `provenclaw run`
-4. verify emitted receipt
-5. print audit log tail (`audit.ndjson`)
+`provenact-examples` no longer supports running `provenclaw`-based flows from this repository.
+Running `./demos/provenclaw-phase0/demo.sh` now fails fast with guidance.
 
-Run:
+Use active Provenact demos instead:
 
-```bash
-./demos/provenclaw-phase0/demo.sh
-```
-
-Output artifacts:
-- run output JSON: `artifacts/provenclaw-phase0/run-output.json`
-- receipts/audit under: `artifacts/provenclaw-phase0/provenclaw-home/`
-
-The script resolves `provenclaw` from:
-- `PATH`, then
-- sibling checkout at `../provenclaw/target/debug/provenclaw`, then
-- `cargo run` from sibling `../provenclaw`.
+- `./demos/hello-provenance/run.sh`
+- `./demos/ci-gate/run.sh`
+- `./demos/ide-bridge/run.sh`
